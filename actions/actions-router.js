@@ -1,5 +1,7 @@
 const express = require("express");
 
+const Actions = require('./actions-model');
+
 const router = express.Router();
 
 router.get("/", async (req, res) => {
