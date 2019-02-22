@@ -5,11 +5,25 @@ const Actions = require("./actions-model");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  res.send("hello from actions router");
+  try {
+    const actions = await Actions.getActions();
+    res.status(200).json(actions);
+  } catch (error) {
+    res.status(500).json({ error: "Error retrieving actions" });
+  }
 });
 
 router.get("/:id", async (req, res) => {
-  res.send("hello from actions router");
+  try {
+    const action = await Actions.getActionById(req.params.id);
+    if (action) {
+      res.status(201).json(action);
+    } else {
+      res.status(404).json({ error: "Action not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Error retrieving action" });
+  }
 });
 
 router.post("/", async (req, res) => {
@@ -27,12 +41,32 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
-  // const count = await
+router.delete("/:id", async (req, res) => {
+  try {
+    const count = await Actions.removeAction(req.params.id);
+    if (count > 0) {
+      res.status(204).end();
+    } else {
+      res.status(404).json({ error: "Action not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting action" });
+  }
 });
 
-router.put('/:id', async (req, res) => {
-  
+router.put("/:id", async (req, res) => {
+  try {
+    const count = await Actions.updateAction(req.params.id, req.body);
+
+    if (count > 0) {
+      const action = await Actions.getActionById(req.params.id);
+      res.status(200).json(action);
+    } else {
+      res.status(404).json({ error: "Error updating action" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Error updating action" });
+  }
 });
 
 module.exports = router;
