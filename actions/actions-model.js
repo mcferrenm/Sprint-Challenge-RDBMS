@@ -1,7 +1,22 @@
 const db = require("../data/knexConfig");
 
-function addAction(project) {
-  return db("actions").insert(project);
+function getActions() {
+  return db("actions")
+}
+function getActionById(id) {
+  return db("actions").where({ id }).first();
+}
+
+function addAction(action) {
+  return db("actions").insert(action);
+}
+
+function removeAction(id) {
+  return db("actions").where({ id }).del()
+}
+
+function updateAction(id, action) {
+  return db("actions").where({ id }).update(action)
 }
 
 function getActionsByProjectId(id) {
@@ -9,6 +24,10 @@ function getActionsByProjectId(id) {
 }
 
 module.exports = {
+  getActions,
+  getActionById,
   addAction,
+  removeAction,
+  updateAction,
   getActionsByProjectId
 };
