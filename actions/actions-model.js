@@ -1,10 +1,21 @@
 const db = require("../data/knexConfig");
 
 function getActions() {
-  return db("actions")
+  return db("actions");
 }
+
 function getActionById(id) {
-  return db("actions").where({ id }).first();
+  return db("actions").where({ id });
+}
+// action id INPUT contexts OUTPUT
+function getContextsByActionId(id) {
+  return db("contexts")
+    .join("actions-contexts", "contexts.id", "=", "actions-contexts.context_id")
+    .join("actions", "actions.id", "=", "actions-contexts.action_id")
+    .select({
+      Context: "contexts.name"
+    })
+    .where({ "actions.id": id });
 }
 
 function addAction(action) {
@@ -12,11 +23,15 @@ function addAction(action) {
 }
 
 function removeAction(id) {
-  return db("actions").where({ id }).del()
+  return db("actions")
+    .where({ id })
+    .del();
 }
 
 function updateAction(id, action) {
-  return db("actions").where({ id }).update(action)
+  return db("actions")
+    .where({ id })
+    .update(action);
 }
 
 function getActionsByProjectId(id) {
@@ -29,5 +44,6 @@ module.exports = {
   addAction,
   removeAction,
   updateAction,
-  getActionsByProjectId
+  getActionsByProjectId,
+  getContextsByActionId
 };

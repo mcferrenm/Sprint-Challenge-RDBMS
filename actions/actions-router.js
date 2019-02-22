@@ -17,7 +17,15 @@ router.get("/:id", async (req, res) => {
   try {
     const action = await Actions.getActionById(req.params.id);
     if (action) {
-      res.status(201).json(action);
+  
+      const contexts = await Actions.getContextsByActionId(req.params.id);
+      
+      const actionWithContexts = {
+        ...action,
+        contexts
+      }
+
+      res.status(201).json(actionWithContexts);
     } else {
       res.status(404).json({ error: "Action not found" });
     }
