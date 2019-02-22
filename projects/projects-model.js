@@ -1,8 +1,7 @@
-const db = require('../data/knexConfig');
+const db = require("../data/knexConfig");
 
 function addProject(project) {
-  return db("projects")
-    .insert(project)
+  return db("projects").insert(project);
 }
 
 function getProjectById(id) {
@@ -14,4 +13,4 @@ function getProjectById(id) {
 module.exports = {
   addProject,
   getProjectById
-}
+};
