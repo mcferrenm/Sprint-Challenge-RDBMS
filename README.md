@@ -1,3 +1,5 @@
+Init
+
 # Sprint Challenge: RDBMS and SQL - Projects & Actions
 
 This challenge allows you to practice the concepts and techniques learned over the past Sprint and apply them in a concrete project. This Sprint explored Adding Data Persistence to Web API's and you were taught the following modules: Introduction to Relational Databases and SQL, Inserting and Modifying Data, Querying Data; Migrations and Seeds and Introduction to Data Modeling. In your challenge for this Sprint, you will demonstrate proficiency by creating an API that pesist data to SQLite3.
@@ -29,9 +31,20 @@ This will be akin to the Web API that you built in the last sprint, only this ti
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 1. Explain the difference between `RDBMS` and `SQL`.
+
+RDBMS is the software that manages a database, where as SQL is a language used (within a RMDBS) to query the database.
+
 1. Why do tables need a `primary key`?
+
+Records with indentical fields need a way to be distinguished. ex. Two "John Doe" entries are still distinct people.
+
 1. What is the name given to a table column that references the primary key on another table.
+
+Foreign Key
+
 1. What do we need in order to have a _many to many_ relationship between two tables.
+
+A third table holding IDs from both tables.
 
 ## Project Set Up
 
